@@ -18,11 +18,16 @@ data "aws_ami" "ubuntu" {
   owners = ["099720109477"] # Canonical
 }
 
-resource "aws_instance" "web" {
+data "aws_caller_identity" "current" {}
+data "aws_region" "current" {}
+
+resource "aws_instance" "netologytest" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t2.micro"
 
   tags = {
-    Name = "Netology_test"
+    Name = "Netology_test_29.03.21"
   }
 }
+
+
