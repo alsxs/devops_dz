@@ -4,10 +4,8 @@ provider "aws" {
 
 
 locals {
-  web_instance_type = {
-    stage = "t2.micro"
-    prod = "t2.micro"
-  }
+  web_instance_type = "t2.micro"
+
 //  web_instance_count = {
 //    //stage = 0
 //    prod = 1
