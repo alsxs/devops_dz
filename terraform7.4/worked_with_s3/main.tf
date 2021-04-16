@@ -5,13 +5,13 @@ provider "aws" {
 
 locals {
   web_instance_type = {
-    //stage = "t2.micro"
+    stage = "t2.micro"
     prod = "t2.micro"
   }
-//  web_instance_count = {
-//    //stage = 0
-//    prod = 1
-//  }
+  web_instance_count = {
+    stage = 0
+    prod = 1
+  }
 }
 
 data "aws_ami" "ubuntu" {
@@ -38,6 +38,9 @@ data "aws_region" "current" {}
 resource "aws_instance" "web" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = local.web_instance_type[terraform.workspace]
-
+  count         = local.web_instance_count[terraform.workspace]
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
