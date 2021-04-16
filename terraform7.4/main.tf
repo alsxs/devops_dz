@@ -3,14 +3,16 @@ provider "aws" {
 }
 
 
-locals {
-  web_instance_type = "t2.micro"
-
+//locals {
+//  web_instance_type = {
+//    stage = "t2.micro"
+//    prod = "t2.micro"
+//  }
 //  web_instance_count = {
 //    //stage = 0
 //    prod = 1
 //  }
-}
+//}
 
 data "aws_ami" "ubuntu" {
   most_recent = true
@@ -35,7 +37,7 @@ data "aws_region" "current" {}
 
 resource "aws_instance" "web" {
   ami           = data.aws_ami.ubuntu.id
-  instance_type = local.web_instance_type[terraform.workspace]
+  instance_type = "t2.micro"
 
 }
 
