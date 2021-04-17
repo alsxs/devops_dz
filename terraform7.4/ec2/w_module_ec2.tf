@@ -41,7 +41,6 @@ module "ec2_cluster" {
 
   ami = data.aws_ami.ubuntu.id
   instance_type = "t2.micro"
-  //key_name = "user1"
   monitoring = true
   subnet_id   = aws_subnet.my_subnet.id
 
