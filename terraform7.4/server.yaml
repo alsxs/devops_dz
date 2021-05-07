@@ -1,0 +1,18 @@
+repos:
+- id: https://github.com/alsxs/terraform7.4
+  apply_requirements: [approved, mergeable]
+  workflow: custom
+  allowed_overrides: [apply_requirements, workflow]
+  allow_custom_workflows: true
+workflows:
+  custom:
+    plan:
+      steps:
+      - run: initiating and planning
+      - init
+      - plan:
+          extra_args: ["-lock", "false"]
+    apply:
+      steps:
+      - run: applying
+      - apply
