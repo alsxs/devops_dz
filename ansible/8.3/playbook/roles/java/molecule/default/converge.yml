@@ -1,0 +1,9 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include java mnt-homeworks-ansible"
+      include_role:
+        #name: "mnt-homeworks-ansible"
+        name: "java"
+
