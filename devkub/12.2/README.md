@@ -20,5 +20,5 @@
 #### Задание 3: Изменение количества реплик
 
 ```Ниже решение по увеличению количества реплик. Опять же, пришлось подождать около 6 минут пока все поднимутся (видимо нужно снова устанавливать миникуб```  
-![new_user_descr.png](https://github.com/alsxs/devops_dz/blob/main/devkub/12.2/pics/new_user_descr.png)
+![new_user_descr.png](https://github.com/alsxs/devops_dz/blob/main/devkub/12.2/pics/scaling_reps.png)
 
