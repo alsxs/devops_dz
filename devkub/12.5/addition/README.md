@@ -6,7 +6,7 @@
   
 ![no_policy](https://github.com/alsxs/devops_dz/blob/main/devkub/12.5/addition/no_policy.png)  
   
-Ниже на скрине приведены: текст политики, последовательность применения, таймаут при запросе извне с управляющей машины (справа), проверка доступа к поду внутри с мастер-ноды.
-   
+Ниже на скрине приведены: текст политики (также приложил в файле [test_policy.yaml](https://github.com/alsxs/devops_dz/blob/main/devkub/12.5/addition/test_policy.yaml)), последовательность применения, таймаут при запросе извне с управляющей машины (справа), проверка доступа к поду внутри с мастер-ноды.
+Вроде, работает.   
 ![wpolicy_not_allow](https://github.com/alsxs/devops_dz/blob/main/devkub/12.5/addition/wpolicy_not_allow.png)  
   
