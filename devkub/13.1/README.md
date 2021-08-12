@@ -32,9 +32,9 @@ spec:
         ports:
         - containerPort: 9000
         command: ["sleep", "7878"]
-```
-[t1-bd-ss-svc.yaml:](https://github.com/alsxs/devops_dz/blob/main/devkub/13.1/t1-bd-ss-svc.yaml)  
+```  
   
+[t1-bd-ss-svc.yaml:](https://github.com/alsxs/devops_dz/blob/main/devkub/13.1/t1-bd-ss-svc.yaml)  
 ```yaml
 apiVersion: apps/v1
 kind: StatefulSet
@@ -91,7 +91,6 @@ spec:
 Ниже привожу тексты и картинку с выводами.  
   
 [t2-frontend-svc.yaml:](https://github.com/alsxs/devops_dz/blob/main/devkub/13.1/t2-frontend-svc.yaml)  
-  
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -136,7 +135,6 @@ spec:
 ```
   
 [t2-backend-svc.yaml:](https://github.com/alsxs/devops_dz/blob/main/devkub/13.1/t2-backend-svc.yaml)  
-  
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -182,7 +180,6 @@ spec:
 ```
   
 [t2a-bd-ss-svc.yaml:](https://github.com/alsxs/devops_dz/blob/main/devkub/13.1/t2a-bd-ss-svc.yaml)  
-  
 ```yaml
 apiVersion: apps/v1
 kind: StatefulSet
@@ -264,5 +261,7 @@ spec:
       port: 5432
       targetPort: 5432
 ```
-    
+  
+Здесь, в рамках выполнения задания не до конца понял один момент: в темплейте pvc заказывался 1Gi, а выделилось 2. По какой причине это могло произойти? Одинаковое имя для pv и pvc?
+  
 ![13.1_t2](https://github.com/alsxs/devops_dz/blob/main/devkub/13.1/13.1_t2a.png)
