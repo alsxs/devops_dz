@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: t2-db
+  namespace: prod
+spec:
+  selector:
+    matchLabels:
+      app: t2-db
+  serviceName: "t2-db"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: t2-db
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - image: postgres:13-alpine
+        name: t2-db
+        volumeMounts:
+            - name: pgdata
+              mountPath: /data/pgdata
+        env:
+          - name: POSTGRES_PASSWORD
+            value: postgres
+          - name: POSTGRES_USER
+            value: postgres
+          - name: POSTGRES_DB
+            value: news
+          - name: PGDATA
+            value: /data/pgdata          
+        ports:
+        - containerPort: 5432
+  volumeClaimTemplates:
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      name: pgdata
+    spec:
+      accessModes: 
+      - ReadWriteOnce
+      storageClassName: ""
+      resources:
+        requests:
+          storage: 1Gi
+          
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pgdata
+  namespace: prod  
+spec:
+  capacity:
+    storage: 2Gi
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: ""
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /data
+                
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: t2-db
+  namespace: prod
+  labels:
+    app: t2-db
+spec:
+  type: ClusterIP
+  selector:
+    app: t2-db
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432

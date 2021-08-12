@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: t1-db
+  namespace: stage
+spec:
+  selector:
+    matchLabels:
+      app: t1-db
+  serviceName: "t1-db-serv"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: t1-db
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - image: postgres:13-alpine
+        name: t1-db
+        env:
+          - name: POSTGRES_PASSWORD
+            value: postgres
+          - name: POSTGRES_USER
+            value: postgres
+          - name: POSTGRES_DB
+            value: news
+        ports:
+        - containerPort: 5432
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: t1-db-serv
+  namespace: stage
+  labels:
+    app: t1-db
+spec:
+  type: ClusterIP
+  selector:
+    app: t1-db
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
