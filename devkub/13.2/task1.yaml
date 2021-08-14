@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-backend
+  namespace: stage
+  labels:
+    app: t1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: t1
+  template:
+    metadata:
+      labels:
+        app: t1
+    spec:
+      containers:
+      - name: frontend
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: static
+          mountPath: /static
+      - name: backend
+        image: python:3.9-buster        
+        ports:
+        - containerPort: 9000
+        command: ["sleep", "7878"]
+        volumeMounts:
+        - name: static
+          mountPath: /static
+                  
+      volumes:
+      - name: static
+        emptyDir: {}

@@ -1,0 +1,41 @@
+als@node1:~/run/13.2$ sudo kubectl get ns
+[sudo] password for als: 
+NAME              STATUS   AGE
+default           Active   13d
+kube-node-lease   Active   13d
+kube-public       Active   13d
+kube-system       Active   13d
+prod              Active   2d20h
+stage             Active   2d22h
+als@node1:~/run/13.2$ ls
+task1.yaml
+als@node1:~/run/13.2$ sudo kubectl apply -f task1.yaml
+[sudo] password for als: 
+deployment.apps/frontend-backend created
+als@node1:~/run/13.2$ 
+als@node1:~/run/13.2$ sudo kubectl get po 
+NAME                                  READY   STATUS    RESTARTS   AGE
+hello-node-7567d9fdc9-jgpb6           1/1     Running   4          6d8h
+nfs-server-nfs-server-provisioner-0   1/1     Running   0          137m
+als@node1:~/run/13.2$ 
+als@node1:~/run/13.2$ sudo kubectl get po -n stage
+NAME                                READY   STATUS    RESTARTS   AGE
+frontend-backend-5c67b54865-8b2dc   2/2     Running   0          7m27s
+als@node1:~/run/13.2$ sudo kubectl exec frontend-backend-5c67b54865-8b2dc -c frontend -- sh -c 'echo "47" > /static/47.txt'
+Error from server (NotFound): pods "frontend-backend-5c67b54865-8b2dc" not found
+als@node1:~/run/13.2$ sudo kubectl exec frontend-backend-5c67b54865-8b2dc -n stage -c frontend -- sh -c 'echo "47" > /static/47.txt'
+als@node1:~/run/13.2$ 
+als@node1:~/run/13.2$ sudo kubectl exec -it frontend-backend-5c67b54865-8b2dc -n stage -c backend -- bash
+root@frontend-backend-5c67b54865-8b2dc:/# ls /static
+47.txt
+root@frontend-backend-5c67b54865-8b2dc:/# cat /static/47.txt
+47
+root@frontend-backend-5c67b54865-8b2dc:/# exit
+exit
+als@node1:~/run/13.2$ 
+als@node1:~/run/13.2$ sudo kubectl exec -it frontend-backend-5c67b54865-8b2dc -n stage -c frontend -- bash
+root@frontend-backend-5c67b54865-8b2dc:/# cat /static/47.txt
+47
+root@frontend-backend-5c67b54865-8b2dc:/# exit
+exit
+als@node1:~/run/13.2$ 

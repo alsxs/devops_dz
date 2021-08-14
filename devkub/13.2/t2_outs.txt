@@ -1,0 +1,42 @@
+als@node1:~/run/13.2$ 
+als@node1:~/run/13.2$ ls
+pvc-claim.yaml  t1_outs.txt  task1.yaml  task2_backend.yaml  task2_frontend.yaml
+als@node1:~/run/13.2$ 
+als@node1:~/run/13.2$ sudo kubectl apply -f task2_frontend.yaml
+[sudo] password for als: 
+deployment.apps/t2-frontend created
+service/t2-frontend created
+als@node1:~/run/13.2$ 
+als@node1:~/run/13.2$ sudo kubectl apply -f task2_backend.yaml
+deployment.apps/t2-backend created
+service/t2-backend created
+als@node1:~/run/13.2$ 
+als@node1:~/run/13.2$ sudo kubectl get po -n prod
+NAME                           READY   STATUS    RESTARTS   AGE
+t2-backend-b69d6c594-hjqhf     0/1     Pending   0          19s
+t2-frontend-6d678f6778-2wlbt   0/1     Pending   0          39s
+als@node1:~/run/13.2$ 
+als@node1:~/run/13.2$ sudo kubectl apply -f pvc-claim.yaml
+persistentvolumeclaim/pvc-claim created
+als@node1:~/run/13.2$ 
+als@node1:~/run/13.2$ sudo kubectl get po -n prod
+NAME                           READY   STATUS    RESTARTS   AGE
+t2-backend-b69d6c594-hjqhf     1/1     Running   0          4m14s
+t2-frontend-6d678f6778-2wlbt   1/1     Running   0          4m34s
+als@node1:~/run/13.2$ 
+als@node1:~/run/13.2$ sudo kubectl exec t2-backend-b69d6c594-hjqhf -n prod -c t2-backend -- sh -c 'echo "48" > /static/48.txt'
+sh: 1: cannot create /static/48.txt: Directory nonexistent
+command terminated with exit code 2
+als@node1:~/run/13.2$ sudo kubectl exec t2-backend-b69d6c594-hjqhf -n prod -c t2-backend -- sh -c 'echo "48" > /static_prod/48.txt'
+als@node1:~/run/13.2$ 
+als@node1:~/run/13.2$ sudo kubectl exec -it t2-frontend-6d678f6778-2wlbt -n prod -c t2-frontend -- bash
+root@t2-frontend-6d678f6778-2wlbt:/# 
+root@t2-frontend-6d678f6778-2wlbt:/# ls -lah /static_prod
+total 12K
+drwxrwsrwx 2 root root 4.0K Aug 14 00:15 .
+drwxr-xr-x 1 root root 4.0K Aug 14 00:10 ..
+-rw-r--r-- 1 root root    3 Aug 14 00:15 48.txt
+root@t2-frontend-6d678f6778-2wlbt:/# 
+root@t2-frontend-6d678f6778-2wlbt:/# exit
+exit
+als@node1:~/run/13.2$

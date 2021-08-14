@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: t2-backend
+  namespace: prod
+  labels:
+    app: t2-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: t2-backend
+  template:
+    metadata:
+      labels:
+        app: t2-backend
+    spec:
+      containers:
+      - name: t2-backend
+        image: python:3.9-buster        
+        ports:
+        - containerPort: 9000
+        command: ["sleep", "7878"]
+        volumeMounts:
+        - mountPath: /static_prod
+          name: pv-stor
+      volumes:
+      - name: pv-stor
+        persistentVolumeClaim:
+          claimName: pvc-claim
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: t2-backend
+  namespace: prod
+spec:
+  type: ClusterIP
+  selector:
+    app: t2-backend
+  ports:
+    - protocol: TCP
+      port: 9000
+      targetPort: 9000
