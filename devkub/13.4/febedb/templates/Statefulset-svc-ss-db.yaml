@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: net{{ .Chart.AppVersion }}-db
+spec:
+  selector:
+    matchLabels:
+      app: net{{ .Chart.AppVersion }}
+  serviceName: net{{ .Chart.AppVersion }}-db
+  replicas: {{ .Values.replicaCount.db }}
+  template:
+    metadata:
+      labels:
+        app: net{{ .Chart.AppVersion }}
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - image: "{{ .Values.image.db.repository }}:{{ .Values.image.db.tag | default .Chart.AppVersion }}"
+        name: net{{ .Chart.AppVersion }}-db
+        volumeMounts:
+            - name: pgdata
+              mountPath: /data/pgdata
+        env:
+          - name: POSTGRES_PASSWORD
+            value: postgres
+          - name: POSTGRES_USER
+            value: postgres
+          - name: POSTGRES_DB
+            value: news
+          - name: PGDATA
+            value: /data/pgdata          
+        ports:
+        - containerPort: {{ .Values.service.db.port }}
+  volumeClaimTemplates:
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      name: pgdata
+    spec:
+      accessModes: 
+      - ReadWriteOnce
+      storageClassName: ""
+      resources:
+        requests:
+          storage: 1Gi
+          
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: net{{ .Chart.AppVersion }}-db
+  labels:
+    app: net{{ .Chart.AppVersion }}
+spec:
+  type: {{ .Values.service.db.type }}
+  selector:
+    app: net{{ .Chart.AppVersion }}
+  ports:
+    - protocol: TCP
+      port: {{ .Values.service.db.port }}
+      targetPort: {{ .Values.service.db.port }}

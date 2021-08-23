@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: net{{ .Chart.AppVersion }}-backend
+  labels:
+    app: net{{ .Chart.AppVersion }}
+spec:
+  replicas: {{ .Values.replicaCount.backend }}
+  selector:
+    matchLabels:
+      app: net{{ .Chart.AppVersion }}
+  template:
+    metadata:
+      labels:
+        app: net{{ .Chart.AppVersion }}
+    spec:
+      containers:
+      - name: net{{ .Chart.AppVersion }}-backend
+        image: "{{ .Values.image.backend.repository }}:{{ .Values.image.backend.tag | default .Chart.AppVersion }}"
+        ports:
+        - containerPort: {{ .Values.service.backend.port }}
+        command: ["sleep", "7878"]
+        command: ["sh", "-c", "pipenv run uvicorn main:app --reload --host 0.0.0.0 --port 9000"]
+        env:
+          - name: DATABASE_URL
+            value: postgres://postgres:postgres@db-{{ .Release.Version }}:5432/news
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: net{{ .Chart.AppVersion }}-backend
+spec:
+  type: {{ .Values.service.backend.type }}
+  selector:
+    app: net{{ .Chart.AppVersion }}
+  ports:
+    - protocol: TCP
+      port: {{ .Values.service.backend.port }}
+      targetPort: {{ .Values.service.backend.port }}

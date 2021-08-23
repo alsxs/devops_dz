@@ -1,0 +1,65 @@
+als@node1:~/run/git/devkub/13.4$ ls
+3pv.yaml  febedb
+als@node1:~/run/git/devkub/13.4$ kubectl apply -f 3pv.yaml
+persistentvolume/pgdata created
+persistentvolume/pgdata2 created
+persistentvolume/pgdata3 created
+als@node1:~/run/git/devkub/13.4$ helm install app1 febedb --namespace app1
+WARNING: Kubernetes configuration file is group-readable. This is insecure. Location: /home/als/.kube/config
+WARNING: Kubernetes configuration file is world-readable. This is insecure. Location: /home/als/.kube/config
+NAME: app1
+LAST DEPLOYED: Mon Aug 23 07:14:05 2021
+NAMESPACE: app1
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+als@node1:~/run/git/devkub/13.4$ helm install app2 febedb --namespace app1
+WARNING: Kubernetes configuration file is group-readable. This is insecure. Location: /home/als/.kube/config
+WARNING: Kubernetes configuration file is world-readable. This is insecure. Location: /home/als/.kube/config
+NAME: app2
+LAST DEPLOYED: Mon Aug 23 07:16:23 2021
+NAMESPACE: app1
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+als@node1:~/run/git/devkub/13.4$ helm install app3 febedb --namespace app2
+WARNING: Kubernetes configuration file is group-readable. This is insecure. Location: /home/als/.kube/config
+WARNING: Kubernetes configuration file is world-readable. This is insecure. Location: /home/als/.kube/config
+NAME: app3
+LAST DEPLOYED: Mon Aug 23 07:19:25 2021
+NAMESPACE: app2
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+als@node1:~/run/git/devkub/13.4$ kubectl get po -n app1
+NAME                               READY   STATUS    RESTARTS   AGE
+net103-backend-7845cc6cd8-vkkjs    1/1     Running   0          6m55s
+net103-db-0                        1/1     Running   0          6m55s
+net103-frontend-86f448cf4b-bgk2r   1/1     Running   0          6m55s
+net104-backend-cd7f84f84-66sjk     1/1     Running   0          4m37s
+net104-db-0                        1/1     Running   0          4m37s
+net104-frontend-58f947fbc4-svksl   1/1     Running   0          4m37s
+als@node1:~/run/git/devkub/13.4$ kubectl get po -n app2
+NAME                               READY   STATUS    RESTARTS   AGE
+net105-backend-5f6c7867c6-v8zpv    1/1     Running   0          107s
+net105-db-0                        1/1     Running   0          107s
+net105-frontend-64988dd96b-2rw2z   1/1     Running   0          107s
+als@node1:~/run/git/devkub/13.4$ 
+als@node1:~/run/git/devkub/13.4$ kubectl get pv
+NAME      CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                     STORAGECLASS   REASON   AGE
+pgdata    2Gi        RWO            Retain           Bound    app1/pgdata-net103-db-0                           8m8s
+pgdata2   2Gi        RWO            Retain           Bound    app1/pgdata-net104-db-0                           8m8s
+pgdata3   2Gi        RWO            Retain           Bound    app2/pgdata-net105-db-0                           8m8s
+als@node1:~/run/git/devkub/13.4$ helm list -n app1
+WARNING: Kubernetes configuration file is group-readable. This is insecure. Location: /home/als/.kube/config
+WARNING: Kubernetes configuration file is world-readable. This is insecure. Location: /home/als/.kube/config
+NAME	NAMESPACE	REVISION	UPDATED                                	STATUS  	CHART       	APP VERSION
+app1	app1     	1       	2021-08-23 07:14:05.99822006 +0300 MSK 	deployed	febedb-0.1.3	103        
+app2	app1     	1       	2021-08-23 07:16:23.711496569 +0300 MSK	deployed	febedb-0.1.4	104        
+als@node1:~/run/git/devkub/13.4$ 
+als@node1:~/run/git/devkub/13.4$ helm list -n app2
+WARNING: Kubernetes configuration file is group-readable. This is insecure. Location: /home/als/.kube/config
+WARNING: Kubernetes configuration file is world-readable. This is insecure. Location: /home/als/.kube/config
+NAME	NAMESPACE	REVISION	UPDATED                                	STATUS  	CHART       	APP VERSION
+app3	app2     	1       	2021-08-23 07:19:25.271234506 +0300 MSK	deployed	febedb-0.1.5	105        
+als@node1:~/run/git/devkub/13.4$

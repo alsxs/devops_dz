@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: net{{ .Chart.AppVersion }}-frontend
+  labels:
+    app: net{{ .Chart.AppVersion }}
+spec:
+  replicas: {{ .Values.replicaCount.frontend }}
+  selector:
+    matchLabels:
+      app: net{{ .Chart.AppVersion }}
+  template:
+    metadata:
+      labels:
+        app: net{{ .Chart.AppVersion }}
+    spec:
+      containers:
+      - name: net{{ .Chart.AppVersion }}-frontend
+        image: "{{ .Values.image.frontend.repository }}:{{ .Values.image.frontend.tag | default .Chart.AppVersion }}"
+        ports:
+        - containerPort: {{ .Values.service.frontend.port }}
+        env:
+          - name: BASE_URL
+            value: http://localhost:{{ .Values.service.backend.port }}
+            
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: net{{ .Chart.AppVersion }}-frontend
+spec:
+  type: {{ .Values.service.frontend.type }}
+  selector:
+    app: net{{ .Chart.AppVersion }}
+  ports:
+    - protocol: TCP
+      port: {{ .Values.service.frontend.port }}
+
