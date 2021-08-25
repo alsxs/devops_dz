@@ -6,7 +6,7 @@
 задачу 1 как справочный материал.
 
 ```textmate
-*Задание выполнялось в ранее развернутом k8s, миникуб удалил. Надеюсь это не критично.*  
+"Задание выполнялось в ранее развернутом k8s, миникуб удалил. Надеюсь это не критично."  
 ```
 
 #### Как создать секрет?
@@ -19,12 +19,11 @@ kubectl create secret tls domain-cert --cert=certs/cert.crt --key=certs/cert.key
 ```
   
 ```textmate
-*Ниже скрин с результатами выполнения:*  
+"Ниже скрин с результатами выполнения:"  
 ```
 ![01_create_cert.png](https://github.com/alsxs/devops_dz/blob/main/clokub/14.1/01_create_cert.png)  
   
-
-
+  
 #### Как просмотреть список секретов?
 
 ```
@@ -33,7 +32,7 @@ kubectl get secret
 ```
   
 ```textmate
-*Ниже скрин с результатами выполнения:*  
+"Ниже скрин с результатами выполнения:"  
 ```
 ![02_list_cert.png](https://github.com/alsxs/devops_dz/blob/main/clokub/14.1/02_list_cert.png)  
   
@@ -46,7 +45,7 @@ kubectl describe secret domain-cert
 ```
   
 ```textmate
-*Ниже скрин с результатами выполнения:*  
+"Ниже скрин с результатами выполнения:"    
 ```
 ![03_get_descr.png](https://github.com/alsxs/devops_dz/blob/main/clokub/14.1/03_get_descr.png)  
   
@@ -59,8 +58,8 @@ kubectl get secret domain-cert -o json
 ```
   
 ```textmate
-*Ниже сокращенные выводы команд, поскольку скрины вышли бы большими:*  
-*yaml:*  
+"Ниже сокращенные выводы команд, поскольку скрины вышли бы большими:    
+yaml:"  
 ```
 ```shell
 als@node1:~$ kubectl get secret domain-cert -o yaml
@@ -80,7 +79,7 @@ als@node1:~$
 ```
   
 ```textmate
-*json:*  
+"json:"  
 ```
 ```shell
 als@node1:~$ kubectl get secret domain-cert -o json
@@ -122,7 +121,7 @@ kubectl apply -f domain-cert.yml
 ```
   
 ```textmate
-*Ниже скрин с выводами, удалением и загрузкой из файла:*  
+"Ниже скрин с выводами, удалением и загрузкой из файла:"  
 ```
 ![04_export_del_restore.png](https://github.com/alsxs/devops_dz/blob/main/clokub/14.1/04_export_del_restore.png)  
   
