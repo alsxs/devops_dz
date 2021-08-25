@@ -6,7 +6,7 @@
 задачу 1 как справочный материал.
 
 
-"Задание выполнялось в ранее развернутом k8s, миникуб удалил. Надеюсь это не критично."  
+***Задание выполнялось в ранее развернутом k8s, миникуб удалил. Надеюсь это не критично.***  
   
 #### Как создать секрет?
 
@@ -18,7 +18,7 @@ kubectl create secret tls domain-cert --cert=certs/cert.crt --key=certs/cert.key
 ```
   
 
-"Ниже скрин с результатами выполнения:"  
+***Ниже скрин с результатами выполнения:***  
 ![01_create_cert.png](https://github.com/alsxs/devops_dz/blob/main/clokub/14.1/01_create_cert.png)  
   
   
@@ -29,7 +29,7 @@ kubectl get secrets
 kubectl get secret
 ```
   
-"Ниже скрин с результатами выполнения:"  
+***Ниже скрин с результатами выполнения:***  
 ![02_list_cert.png](https://github.com/alsxs/devops_dz/blob/main/clokub/14.1/02_list_cert.png)  
   
 
@@ -41,7 +41,7 @@ kubectl describe secret domain-cert
 ```
   
 
-"Ниже скрин с результатами выполнения:"  
+***Ниже скрин с результатами выполнения:***  
 ![03_get_descr.png](https://github.com/alsxs/devops_dz/blob/main/clokub/14.1/03_get_descr.png)  
   
   
@@ -53,8 +53,8 @@ kubectl get secret domain-cert -o json
 ```
   
 
-"Ниже сокращенные выводы команд, поскольку скрины вышли бы большими:    
-yaml:"  
+***Ниже сокращенные выводы команд, поскольку скрины вышли бы большими:***  
+***yaml:***    
 ```shell
 als@node1:~$ kubectl get secret domain-cert -o yaml
 apiVersion: v1
@@ -72,7 +72,7 @@ type: kubernetes.io/tls
 als@node1:~$ 
 ```
   
-"json:"  
+***json:***  
 ```shell
 als@node1:~$ kubectl get secret domain-cert -o json
 {
@@ -112,7 +112,7 @@ kubectl delete secret domain-cert
 kubectl apply -f domain-cert.yml
 ```
   
-"Ниже скрин с выводами, удалением и загрузкой из файла:"  
+***Ниже скрин с выводами, удалением и загрузкой из файла:***  
 ![04_export_del_restore.png](https://github.com/alsxs/devops_dz/blob/main/clokub/14.1/04_export_del_restore.png)  
   
    
