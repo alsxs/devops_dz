@@ -1,0 +1,52 @@
+{
+    "apiVersion": "v1",
+    "items": [
+        {
+            "apiVersion": "v1",
+            "data": {
+                "name": "netology.ru"
+            },
+            "kind": "ConfigMap",
+            "metadata": {
+                "creationTimestamp": "2021-08-27T15:41:12Z",
+                "name": "domain",
+                "namespace": "default",
+                "resourceVersion": "3175833",
+                "uid": "f2d3d51a-2d67-48da-ac93-8fcd18caaa07"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "data": {
+                "ca.crt": "-----BEGIN CERTIFICATE-----\nMIIC5zCCAc+gAwIBAgIBADANBgkqhkiG9w0BAQsFADAVMRMwEQYDVQQDEwprdWJl\ncm5ldGVzMB4XDTIxMDczMTE1MzcxM1oXDTMxMDcyOTE1MzcxM1owFTETMBEGA1UE\nAxMKa3ViZXJuZXRlczCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAKcP\nYH/Q/pP16p7zPuGp5KOE63gJqAPegNYTPsx41gTGwtQ3zUdhb1mIRmoKCoIYsOd6\nx1V+DkDz8glrmURLWWTFaQ7Un7/vnvee8YnkELapafTnA25nxV1zmS5qLjA06WrC\neopMUvgQRTbtnBbwiln/Z4Pkt1Jdpow7g+8Ykq+lY8lu45SaafpfeucophfVw5Eg\nxJ25wFjSOuWLv4xENQ7zPZVnC4UT6Zy3E17zLChA7kc+IsZ36b5HunJ89bUnVdzP\njlVMhpuuZ+mMUqZF78YRQQVRBFucYxsga57AGQAFoVFL9bCwpLfJ40TSOtQs6+Xp\njyZ+YKVaZtaEa4/mmsUCAwEAAaNCMEAwDgYDVR0PAQH/BAQDAgKkMA8GA1UdEwEB\n/wQFMAMBAf8wHQYDVR0OBBYEFGbpP37DFWHbmAnl3eUAvYgJLJ0MMA0GCSqGSIb3\nDQEBCwUAA4IBAQCkC6AN6Z27dyEHyN6ZNSnnpZchAAg2RMWa9mpK/9nHxn0gDNdL\n8QUJEPcevebVtv+EQqBV/XvJKnsy+2GdDFWm7WuJLkKuuHA/Ihnq1vDyhRTSy9R9\n7Iu/h8OJOwQ0SD2OEZzP0WNmuJeASH9XztqoFEynpngCj5DIEjI5qdNYFKNduLHl\nH0abcYlCeWX9VHmYd5VA8fvAlmdlhlVfBWaTtPktJimfppsl7ccHPpYgr3sJUlIb\nTz30gz3GTtHGfkfbyLsL0jbhOeJpMcM9q+3y5yneJgyV5Pps/J/97R5suuIlzcLd\nqhDIeQBVtsHQf5tlbXUOJ4+M9ezS6dJXlZyA\n-----END CERTIFICATE-----\n"
+            },
+            "kind": "ConfigMap",
+            "metadata": {
+                "creationTimestamp": "2021-07-31T15:38:02Z",
+                "name": "kube-root-ca.crt",
+                "namespace": "default",
+                "resourceVersion": "421",
+                "uid": "8c47b7e2-84a0-40d6-8e09-4a42ca7edf0e"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "data": {
+                "nginx.conf": "server {\n    listen 80;\n    server_name  netology.ru www.netology.ru;\n    access_log  /var/log/nginx/domains/netology.ru-access.log  main;\n    error_log   /var/log/nginx/domains/netology.ru-error.log info;\n    location / {\n        include proxy_params;\n        proxy_pass http://10.10.10.10:8080/;\n    }\n}\n"
+            },
+            "kind": "ConfigMap",
+            "metadata": {
+                "creationTimestamp": "2021-08-27T15:40:46Z",
+                "name": "nginx-config",
+                "namespace": "default",
+                "resourceVersion": "3175782",
+                "uid": "9ade86dc-e9a0-4939-aaa8-7d32ec25868c"
+            }
+        }
+    ],
+    "kind": "List",
+    "metadata": {
+        "resourceVersion": "",
+        "selfLink": ""
+    }
+}
