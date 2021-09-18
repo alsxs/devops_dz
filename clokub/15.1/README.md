@@ -68,7 +68,7 @@
 ```
 Пинг сайта яндекса из приватного инстанса:  
 ```
-![15.1_3-4_ping_ya_from_public.png](https://github.com/alsxs/devops_dz/blob/main/clokub/15.1/p3-4/15.1_3-4_ping_ya_from_public.png)   
+![15.1_3-4_ping_ya_from_private.png](https://github.com/alsxs/devops_dz/blob/main/clokub/15.1/p3-4/15.1_3-4_ping_ya_from_private.png)   
   
   
 ```
