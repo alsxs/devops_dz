@@ -33,4 +33,4 @@ override.tf.json
 .terraformrc
 terraform.rc
 *.lock.*
-#variables.tf
+variables.tf
