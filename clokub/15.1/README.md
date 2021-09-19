@@ -24,7 +24,7 @@
 - [ec2s.tf](https://github.com/alsxs/devops_dz/blob/main/clokub/15.1/p1-2/ec2s.tf)  
 - [outputs.tf](https://github.com/alsxs/devops_dz/blob/main/clokub/15.1/p1-2/outputs.tf)  
   
-* файл с переменными не загружал, поскольку там ключ shh
+* файл с переменными не загружал, поскольку там ключ ssh
   
 ![15.1_1-2.png](https://github.com/alsxs/devops_dz/blob/main/clokub/15.1/p1-2/15.1_1-2.png)   
 
@@ -56,7 +56,7 @@
 - [outputs.tf](https://github.com/alsxs/devops_dz/blob/main/clokub/15.1/p3-4/outputs.tf) 
 - [vpn.tf](https://github.com/alsxs/devops_dz/blob/main/clokub/15.1/p3-4/vpn.tf)  
   
-* файл с переменными не загружал, поскольку там ключи shh и сертификаты vpn
+* файл с переменными не загружал, поскольку там ключи ssh и сертификаты vpn
   
   
 ```
