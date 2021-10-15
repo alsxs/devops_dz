@@ -60,6 +60,17 @@ resource "aws_instance" "ec2_priv" {
   }
 }
 
+//resource "aws_network_interface" "statip" {
+//  subnet_id = aws_subnet.private_subnet.id
+//  private_ips = ["172.31.96.12"]
+//  security_groups = [aws_security_group.main.id]
+//
+//  attachment {
+//    instance = aws_instance.ec2_priv.id
+//    device_index = 1
+//  }
+//}
+
 data "template_file" "bootstrap" {
   template = file("bootstrap.tpl")
   vars = {
@@ -74,7 +85,7 @@ resource "aws_launch_configuration" "as_conf" {
   instance_type               = "t2.micro"
   security_groups             = [aws_security_group.main.id]
   key_name                    = "aws-key"
-  associate_public_ip_address = true
+  //associate_public_ip_address = true
 
   user_data = data.template_file.bootstrap.rendered
 }

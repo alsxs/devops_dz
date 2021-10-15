@@ -13,30 +13,20 @@ terraform {
 
 resource "aws_vpc" "my_vpc" {
   cidr_block = "172.31.0.0/16"
+  enable_dns_support = true
   enable_dns_hostnames = true
+  //enable_vpn_gateway = true
 }
 
-resource "aws_subnet" "public_subnet1" {
+resource "aws_subnet" "public_subnet" {
   vpc_id            = aws_vpc.my_vpc.id
   cidr_block = "172.31.32.0/24"
-  availability_zone =  "eu-central-1a"
-}
-
-resource "aws_subnet" "public_subnet2" {
-  vpc_id            = aws_vpc.my_vpc.id
-  cidr_block = "172.31.33.0/24"
-  availability_zone =  "eu-central-1b"
-}
-
-resource "aws_subnet" "public_subnet3" {
-  vpc_id            = aws_vpc.my_vpc.id
-  cidr_block = "172.31.34.0/24"
-  availability_zone =  "eu-central-1c"
+  //availability_zone =  "eu-central-1a"
 }
 
 resource "aws_subnet" "private_subnet" {
   vpc_id            = aws_vpc.my_vpc.id
-  cidr_block = "172.31.96.0/19"
+  cidr_block = "172.31.96.0/24"
 }
 
 resource "aws_internet_gateway" "igw" {
@@ -64,24 +54,15 @@ resource "aws_route_table" "rt_priv" {
 
 resource "aws_nat_gateway" "nat_priv" {
   allocation_id = aws_eip.ip_priv.id
-  subnet_id     = aws_subnet.public_subnet1.id
+  subnet_id     = aws_subnet.public_subnet.id
   depends_on = [aws_internet_gateway.igw]
 }
 
-resource "aws_route_table_association" "rt_assoc_pub1" {
-  subnet_id      = aws_subnet.public_subnet1.id
+resource "aws_route_table_association" "rt_assoc_pub" {
+  subnet_id      = aws_subnet.public_subnet.id
   route_table_id = aws_route_table.rt_pub.id
 }
 
-resource "aws_route_table_association" "rt_assoc_pub2" {
-  subnet_id      = aws_subnet.public_subnet2.id
-  route_table_id = aws_route_table.rt_pub.id
-}
-
-resource "aws_route_table_association" "rt_assoc_pub3" {
-  subnet_id      = aws_subnet.public_subnet3.id
-  route_table_id = aws_route_table.rt_pub.id
-}
 
 resource "aws_route_table_association" "rt_assoc_priv" {
   subnet_id      = aws_subnet.private_subnet.id

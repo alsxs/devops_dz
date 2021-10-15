@@ -1,6 +1,6 @@
 resource "aws_ec2_client_vpn_network_association" "vpn_priv_sub" {
   client_vpn_endpoint_id = aws_ec2_client_vpn_endpoint.vpn.id
-  subnet_id              = aws_subnet.private_subnet.id
+  subnet_id              = aws_subnet.public_subnet.id
   security_groups = [aws_security_group.vpn_sg.id]
 }
 
@@ -22,6 +22,15 @@ resource "aws_ec2_client_vpn_endpoint" "vpn" {
   server_certificate_arn = aws_acm_certificate.vpn_cert_serv.arn
   split_tunnel = true
   client_cidr_block      = "10.0.0.0/22"
+//  dns_servers = [
+//    //"172.31.96.12",
+//    //"205.251.198.0",
+//    //"205.251.194.0",
+//    //"205.251.192.0",
+//    //"172.31.96.248",
+//  ]
+
+
 
   authentication_options {
     type                       = "certificate-authentication"
@@ -49,10 +58,10 @@ resource "aws_security_group" "vpn_sg" {
   name = "vpn-sg"
 
   ingress {
-    from_port = 443
-    protocol = "UDP"
-    to_port = 443
-    cidr_blocks = [aws_vpc.my_vpc.cidr_block]
+    from_port = 0
+    protocol = "-1"
+    to_port = 0
+    cidr_blocks = ["0.0.0.0/0"]
     description = "IncVPN"
   }
 
@@ -63,3 +72,14 @@ resource "aws_security_group" "vpn_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
+//resource "dns_ns_record_set" "www" {
+//  zone = "example.com."
+//  name = "www"
+//  nameservers = [
+//    "a.iana-servers.net.",
+//    "b.iana-servers.net.",
+//  ]
+//  ttl = 300
+//}
+
