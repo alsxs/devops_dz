@@ -1,6 +1,6 @@
 ## Описание последовательности сборки
 
-Установка зависимостей пакетов необходимых для сборки:
+Установка зависимостей и пакетов необходимых для сборки:
 ```shell
 $ sudo apt-get install rpm-build rpm-build-python \
                python-devel python-module-setuptools python-module-lxml \
