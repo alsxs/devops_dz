@@ -7,6 +7,5 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="15.1" />
-    <orderEntry type="module" module-name="dip-net-ext2" />
   </component>
 </module>
